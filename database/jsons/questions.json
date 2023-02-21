@@ -1,0 +1,33 @@
+[
+    {
+        "text" : "¿Cuál es la señal que significa 'GRACIAS'?",
+        "answer":{
+            "image_path" : "gracias.jpg",
+            "meaning" : "GRACIAS"
+        }
+    },
+    {
+        "text" : "¿Cuál es la señal que significa 'MANZANA'?",
+        "answer" :
+            {
+                "image_path" : "manzana.jpg",
+                "meaning" : "MANZANA"
+            }
+    },
+    {
+        "text" : "¿Qué significa esta señal?",
+        "answer" :
+            {
+                "image_path" : "adios.jpg",
+                "meaning" : "ADIOS"
+            }
+    },
+    {
+        "text" : "¿Cuál es la señal que significa 'AUTO'?",
+        "answer" :
+            {
+                "image_path" : "auto.jpg",
+                "meaning" : "AUTO"
+            }
+    }
+]
