@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function(){
     Route::get('questions/random', [QuestionController::class, 'question']);
+    Route::post('questions/validate', [QuestionController::class, 'validate_answer']);
 });
