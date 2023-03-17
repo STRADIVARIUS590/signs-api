@@ -9,6 +9,7 @@ use App\Models\Question;
 use App\Models\Streak;
 use App\Enums\StreakQuestionStatusEnum as QuestionStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class QuestionController extends Controller
 {
@@ -17,85 +18,89 @@ class QuestionController extends Controller
         
         $streak = Streak::create(['token' => uniqid()]);
 
-      //  $options = Answer::whereIn('id', Answer::random(2))->inRandomOrder()->get();
-
-        $questions = Question::whereIn('id', Question::random(4))->inRandomOrder()->get();
-
-        $current_question = $questions->get(0);
-
-
-        $options = Answer::where('id', '!=', $current_question->answers->id)->limit(3)->get()->add($current_question->answers);
-        
-        $streak->questions()->sync($questions);
-
-        $streak->questions()->updateExistingPivot($current_question->id, ['status' => QuestionStatus::Current]);
+        $questions = QuestionController::setup_question($streak);
 
         $streak->save();
 
-
         return response([
             'display' => $streak,
-            'question' => $current_question, 
-            'options' => $options
+            'question' => $questions->current_question, 
+            'options' => $questions->options
         ]);
     }
     
      public function validate_answer(Request $request){
-        $streak = Streak::where('token',  $request->streak_token)->first();
+    
+        $validator = Validator::make($request->all(), [
+            'streak_id' => 'exists:streaks,id'
+        ]);
 
-       // return $streak->questions;
-        if($streak){
-            $current_question = $streak->questions->where('id', $request->question_id)->first();
+        if($validator->passes()){
 
-        //    if($current_question->pivot->status == QuestionStatus::Current){ // la pregunta enviada es la pregunta actual
-             
-                $streak->question_count++; // intentos
-                
-                $correct = $current_question->answers->id == $request->answer_id;
+            $streak = Streak::where('token',  $request->streak_token)->first();            
 
-                if($correct) {
-                    $streak->score++;
-
-                    $current_question_id = $streak->questions()->where('status', QuestionStatus::Current)->first()->id;
-                
-                    $new_question = $streak->questions()->where('status', QuestionStatus::Pending)->first();
-
-                    $options = $options = Answer::where('id', '!=', $new_question->answers->id)->limit(3)->get()->add($new_question->answers);
-                    
-                    $streak->questions()->updateExistingPivot($current_question_id, ['status' => QuestionStatus::NoReturn]);
-                    
-                    $streak->questions()->updateExistingPivot($new_question->id, ['status' => QuestionStatus::Current]);
-
-
-                }else{
-                    
-                }
-
-                
+            $current_question = $streak->questions()->where('status', QuestionStatus::Current)->first();
+            
+            $is_answer_correct = $current_question->answers->id == $request->answer_id;
+            if($is_answer_correct){
+                $streak->score++;
                 $streak->save();
-
-                $streak->load('questions'); 
-                
-      /*       }else{
-                return "No es la pregunta actual !";
-            } */
-            // $streak->answer->load('answers');
-
-            return response([
-                
-                'correct' => $correct,
-                'question' => $new_question,
-                'options' => $options
-            ]);
+                $questions = QuestionController::setup_question($streak);
+            
+                return response([
+                    'display' => $streak,
+                    'question' => $questions->current_question, 
+                    'options' => $questions->options
+                ]);
+            }else{
+                return 'incorrecto';
+            }
         }
 
-        return 'No hay una partida con ese token :v';
-          
     }
 
 
-    public function setup_question(){
+    public static function setup_question(Streak $streak){
+        $current_question = null;
+        $options = null;
+        if($streak->questions()->exists()){
 
+            $old_question = $streak->questions()->wherePivot('status' ,QuestionStatus::Current)->first();
+
+            $current_question = $streak->questions()->wherePivot('status' ,QuestionStatus::Pending)->first();
+            
+            $streak->questions()->updateExistingPivot($old_question->id, ['status' => QuestionStatus::NoReturn]);
+
+            if($current_question){
+
+                $options = Answer::where('id', '!=', $current_question->answers->id)->limit(3)->get()->add($current_question->answers);
+                
+                $streak->questions()->updateExistingPivot($current_question->id, ['status' => QuestionStatus::Current]);
+            
+                unset($current_question->pivot);
+                
+                unset($current_question->answers);
+            
+            }
+            
+        }else{
+            $questions = Question::whereIn('id', Question::random(4))->inRandomOrder()->get();
+
+            $current_question = $questions->get(0);
+    
+            $options = Answer::where('id', '!=', $current_question->answers->id)->limit(3)->get()->add($current_question->answers);
+            
+            $streak->questions()->sync($questions);
+    
+            $streak->questions()->updateExistingPivot($current_question->id, ['status' => QuestionStatus::Current]);
+
+            unset($current_question->answers);
+        }
+
+        $object = new \stdClass;
+        $object->current_question = $current_question;
+        $object->options = $options;
+        return $object;
     }
 
 
