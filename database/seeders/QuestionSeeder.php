@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Question;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class QuestionSeeder extends Seeder
@@ -17,14 +16,18 @@ class QuestionSeeder extends Seeder
         $question_answers = json_decode( file_get_contents('database/jsons/questions.json'), true);
         
         foreach($question_answers as $question){
-            $q = Question::create([
-                'text' => $question['text'],
-            ]);
-            $q->answers()->create([
-                'meaning' =>  $question['answer']['meaning'],
-                'image_path' =>  $question['answer']['image_path'],
-            ]);
+            $q = new Question();
+            $q->text = $question['text'];
+            $q->answer_type = (count($question['answers'])) > 1 ? 'MANY' : 'SINGLE';
+
+            $q->save();
+            foreach($question['answers'] as $answer){
+
+                $q->answers()->create([
+                    'meaning' =>  $answer['meaning'],
+                    'image_path' =>  $answer['image_path'],
+                ]);
+            }
         }
-        //
     }
 }

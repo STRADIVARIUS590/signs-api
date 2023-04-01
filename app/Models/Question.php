@@ -11,7 +11,7 @@ class Question extends Model
 
 
     public function answers(){
-        return $this->hasOne(Answer::class);
+        return $this->hasMany(Answer::class);
     }
 
     public static function random($amount = 1, $column = 'id'){

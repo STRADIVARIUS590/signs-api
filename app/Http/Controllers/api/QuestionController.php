@@ -41,7 +41,9 @@ class QuestionController extends Controller
 
             $current_question = $streak->questions()->where('status', QuestionStatus::Current)->first();
             
-            $is_answer_correct = $current_question->answers->id == $request->answer_id;
+            $is_answer_correct = Answer::check($current_question, $request->answer);// $current_question->answers->id == $request->answer_id;
+
+            //  return $is_answer_correct;
             if($is_answer_correct){
                 $streak->score++;
                 $streak->save();
@@ -72,24 +74,34 @@ class QuestionController extends Controller
             $streak->questions()->updateExistingPivot($old_question->id, ['status' => QuestionStatus::NoReturn]);
 
             if($current_question){
+                if($current_question->answer_type == 'SINGLE'){
 
-                $options = Answer::where('id', '!=', $current_question->answers->id)->limit(3)->get()->add($current_question->answers);
-                
+                    $options = Answer::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
+    
+                }else if($current_question->answrt_type == 'MANY'){
+                    // error_log('PREGUNTA DE ORDEN');
+                    $options = $current_question->answers->shuffle();
+                }
+
                 $streak->questions()->updateExistingPivot($current_question->id, ['status' => QuestionStatus::Current]);
-            
+        
                 unset($current_question->pivot);
                 
                 unset($current_question->answers);
-            
             }
             
         }else{
             $questions = Question::whereIn('id', Question::random(4))->inRandomOrder()->get();
 
             $current_question = $questions->get(0);
-    
-            $options = Answer::where('id', '!=', $current_question->answers->id)->limit(3)->get()->add($current_question->answers);
-            
+
+            if($current_question->answer_type == 'SINGLE'){
+
+                $options = Answer::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
+            }else if($current_question->answer_type == 'MANY'){
+                $options =  $current_question->answers->shuffle();
+            }
+
             $streak->questions()->sync($questions);
     
             $streak->questions()->updateExistingPivot($current_question->id, ['status' => QuestionStatus::Current]);
@@ -103,5 +115,6 @@ class QuestionController extends Controller
         return $object;
     }
 
+    
 
 }

@@ -1,33 +1,52 @@
 [
     {
         "text" : "¿Cuál es la señal que significa 'GRACIAS'?",
-        "answer":{
+        "answers":[
+            {
             "image_path" : "gracias.jpg",
             "meaning" : "GRACIAS"
-        }
+            }
+        ]
     },
     {
         "text" : "¿Cuál es la señal que significa 'MANZANA'?",
-        "answer" :
+        "answers" :[
+
             {
                 "image_path" : "manzana.jpg",
                 "meaning" : "MANZANA"
             }
+        ]   
     },
     {
         "text" : "¿Qué significa esta señal?",
-        "answer" :
+        "answers" :[
             {
                 "image_path" : "adios.jpg",
                 "meaning" : "ADIOS"
             }
+        ]
     },
     {
         "text" : "¿Cuál es la señal que significa 'AUTO'?",
-        "answer" :
+        "answers" :[
             {
                 "image_path" : "auto.jpg",
                 "meaning" : "AUTO"
             }
+        ]
+    },
+    {
+        "text" : "¿Como se deletrea 'AO'?",
+        "answers" :[
+            {
+                "image_path" : "a.ppg",
+                "meaning" : "A"
+            },
+            {
+                "image_path" : "o.ppg",
+                "meaning" : "O"
+            }
+        ]
     }
 ]
