@@ -8,6 +8,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Streak;
 use App\Enums\StreakQuestionStatusEnum as QuestionStatus;
+use App\Models\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -76,7 +77,7 @@ class QuestionController extends Controller
             if($current_question){
                 if($current_question->answer_type == 'SINGLE'){
 
-                    $options = Answer::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
+                    $options = Data::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
     
                 }else if($current_question->answrt_type == 'MANY'){
                     // error_log('PREGUNTA DE ORDEN');
@@ -97,7 +98,7 @@ class QuestionController extends Controller
 
             if($current_question->answer_type == 'SINGLE'){
 
-                $options = Answer::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
+                $options = Data::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
             }else if($current_question->answer_type == 'MANY'){
                 $options =  $current_question->answers->shuffle();
             }
