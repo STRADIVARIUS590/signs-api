@@ -50,14 +50,13 @@ class QuestionController extends Controller
                 $streak->save();
                 $questions = QuestionController::setup_question($streak);
             
-                return response([
-                    'display' => $streak,
-                    'question' => $questions->current_question, 
-                    'options' => $questions->options
-                ]);
-            }else{
-                return 'incorrecto';
+            
             }
+            return response([
+                'display' => $streak,
+                'question' => $questions->current_question, 
+                'options' => $questions->options
+            ]);
         }
 
     }
@@ -97,7 +96,7 @@ class QuestionController extends Controller
             $current_question = $questions->get(0);
 
             if($current_question->answer_type == 'SINGLE'){
-
+                
                 $options = Data::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
             }else if($current_question->answer_type == 'MANY'){
                 $options =  $current_question->answers->shuffle();
