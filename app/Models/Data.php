@@ -13,6 +13,11 @@ class Data extends Model
 
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'pivot'
+    ];
     public function questions(){
         return $this->belongsToMany(Question::class);
     }

@@ -8,6 +8,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Streak;
 use App\Enums\StreakQuestionStatusEnum as QuestionStatus;
+use App\Http\Resources\AnswerCollection;
 use App\Models\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -50,13 +51,16 @@ class QuestionController extends Controller
                 $streak->save();
                 $questions = QuestionController::setup_question($streak);
             
+                return response([
+                    'display' => $streak,
+                    'question' => $questions->current_question, 
+                    'options' => ($questions->options)
+                ]);
             
+            }else{
+                return 'incorrecto';
             }
-            return response([
-                'display' => $streak,
-                'question' => $questions->current_question, 
-                'options' => $questions->options
-            ]);
+          
         }
 
     }
@@ -67,9 +71,9 @@ class QuestionController extends Controller
         $options = null;
         if($streak->questions()->exists()){
 
-            $old_question = $streak->questions()->wherePivot('status' ,QuestionStatus::Current)->first();
+            $old_question = $streak->questions()->wherePivot('status', QuestionStatus::Current)->first();
 
-            $current_question = $streak->questions()->wherePivot('status' ,QuestionStatus::Pending)->first();
+            $current_question = $streak->questions()->wherePivot('status', QuestionStatus::Pending)->first();
             
             $streak->questions()->updateExistingPivot($old_question->id, ['status' => QuestionStatus::NoReturn]);
 
@@ -78,7 +82,7 @@ class QuestionController extends Controller
 
                     $options = Data::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
     
-                }else if($current_question->answrt_type == 'MANY'){
+                }else if($current_question->answer_type == 'MANY'){
                     // error_log('PREGUNTA DE ORDEN');
                     $options = $current_question->answers->shuffle();
                 }
@@ -99,7 +103,7 @@ class QuestionController extends Controller
                 
                 $options = Data::where('id', '!=', $current_question->answers->get(0)->id)->limit(3)->get()->add($current_question->answers->get(0));
             }else if($current_question->answer_type == 'MANY'){
-                $options =  $current_question->answers->shuffle();
+                $options = $current_question->answers->shuffle();
             }
 
             $streak->questions()->sync($questions);

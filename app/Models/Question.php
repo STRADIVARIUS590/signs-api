@@ -10,6 +10,10 @@ class Question extends Model
 {
     use HasFactory;
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
     public function answers(){
         return $this->belongsToMany(Data::class);
