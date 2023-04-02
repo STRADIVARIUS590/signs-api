@@ -48,5 +48,25 @@
                 "meaning" : "O"
             }
         ]
+    },
+    {
+        "text" : "¿Como se deletrea 'ATM'?",
+        "answers" :[
+            {
+
+                "image_path" : "T.ppg",
+                "meaning" : "T"
+            },
+            {
+                
+                "image_path" : "a.ppg",
+                "meaning" : "A"
+            },
+            {
+                "image_path" : "m.ppg",
+                "meaning" : "M"
+            }
+        ]
     }
+
 ]
