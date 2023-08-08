@@ -24,11 +24,13 @@ class QuestionSeeder extends Seeder
             $q->save();
             foreach($question['answers'] as $answer){
                 $ans = Data::where('meaning', $answer['meaning'])->first();
-                if(!$ans)
-                $q->answers()->create([
-                    'meaning' =>  $answer['meaning'],
-                    'image_path' =>  $answer['image_path'],
-                ]);
+              
+                if(!$ans){
+                    $q->answers()->create([
+                        'meaning' =>  $answer['meaning'],
+                        'image_path' =>  $answer['image_path'],
+                    ]);
+                }
                 else{
                     $q->answers()->attach($ans);
                 }

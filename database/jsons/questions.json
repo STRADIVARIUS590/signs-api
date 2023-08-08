@@ -40,11 +40,11 @@
         "text" : "¿Como se deletrea 'AO'?",
         "answers" :[
             {
-                "image_path" : "a.ppg",
+                "image_path" : "a.png",
                 "meaning" : "A"
             },
             {
-                "image_path" : "o.ppg",
+                "image_path" : "o.png",
                 "meaning" : "O"
             }
         ]
@@ -54,16 +54,16 @@
         "answers" :[
             {
 
-                "image_path" : "T.ppg",
+                "image_path" : "T.png",
                 "meaning" : "T"
             },
             {
                 
-                "image_path" : "a.ppg",
+                "image_path" : "a.png",
                 "meaning" : "A"
             },
             {
-                "image_path" : "m.ppg",
+                "image_path" : "m.png",
                 "meaning" : "M"
             }
         ]

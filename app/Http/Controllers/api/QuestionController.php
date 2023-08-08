@@ -24,6 +24,7 @@ class QuestionController extends Controller
 
         $streak->save();
 
+        $questions->current_question->load('answers'); 
         return response([
             'display' => $streak,
             'question' => $questions->current_question, 

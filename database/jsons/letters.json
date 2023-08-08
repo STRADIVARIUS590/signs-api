@@ -1,15 +1,236 @@
 [
     {
-        "meaning" : "A",
-        "image" : "A.png"
+        "meaning": "A",
+        "image": "a.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
     },
     {
-        "meaning" : "B",
-        "image" : "C.png"
+        "meaning": "B",
+        "image": "b.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
     },
     {
-        "meaning" : "C",
-        "image" : "C.png"
+        "meaning": "C",
+        "image": "c.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "D",
+        "image": "d.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "E",
+        "image": "e.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "F",
+        "image": "f.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "G",
+        "image": "g.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "H",
+        "image": "h.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "I",
+        "image": "i.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "J",
+        "image": "j.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "K",
+        "image": "k.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "L",
+        "image": "l.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "M",
+        "image": "m.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "N",
+        "image": "n.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "O",
+        "image": "o.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "P",
+        "image": "p.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "Q",
+        "image": "q.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "R",
+        "image": "r.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "S",
+        "image": "s.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "T",
+        "image": "t.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "U",
+        "image": "u.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "V",
+        "image": "v.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "W",
+        "image": "w.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "X",
+        "image": "x.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "Y",
+        "image": "y.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
+    },
+    {
+        "meaning": "Z",
+        "image": "z.png",
+        "categories": [
+            {
+                "name": "Letras"
+            }
+        ]
     }
-
 ]
