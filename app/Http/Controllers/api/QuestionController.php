@@ -45,22 +45,22 @@ class QuestionController extends Controller
             
             $is_answer_correct = Answer::check($current_question, $request->answer);// $current_question->answers->id == $request->answer_id;
 
+            $message = 'Incorrecto';
             //  return $is_answer_correct;
             if($is_answer_correct){
                 $streak->score++;
                 $streak->save();
-                $questions = QuestionController::setup_question($streak);
-            
-                return response([
-                    'display' => $streak,
-                    'question' => $questions->current_question, 
-                    'options' => ($questions->options)
-                ]);
-            
-            }else{
-                return 'incorrecto';
+                $message = 'Correcto!';
             }
-          
+            $questions = QuestionController::setup_question($streak);
+        
+            return response([
+                'display' => $streak,
+                'question' => $questions->current_question, 
+                'options' => ($questions->options),
+                'message' => $message
+            ]);
+            
         }
 
     }

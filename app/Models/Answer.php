@@ -12,11 +12,11 @@ class Answer extends Model
 
     public static function check($question, $answer){
         if($question->answer_type == 'SINGLE'){//&& !is_array($answer)
-            // error_log($question->answers->get(0)->id);
+            $answer = explode(',', $answer);
             return $question->answers->get(0)->id == $answer[0];
         }
         if($question->answer_type == 'MANY'){
-            return $question->answers->pluck('id')->implode(',') == implode(',', $answer);
+            return $question->answers->pluck('id')->implode(',') ==  $answer;
         }
     }
 
