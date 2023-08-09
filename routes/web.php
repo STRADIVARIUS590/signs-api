@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\Web\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//  Auth::logout();
+Route::get('/home', [HomeController::class, 'index']);
 Route::get('/game', [QuestionController::class, 'game']);
