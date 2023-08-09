@@ -12,4 +12,8 @@ class Category extends Model
     public function data(){
         return $this->belongsToMany(Data::class);
     }
+
+    public function user(){
+        return $this->belongsToMany(User::class)->withPivot('score');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\QuestionController;
+use App\Http\Controllers\MainController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Termwind\Helpers\QuestionHelper;
@@ -23,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function(){
     Route::get('questions/random', [QuestionController::class, 'question']);
     Route::post('questions/validate', [QuestionController::class, 'validate_answer']);
+    Route::get('/', [MainController::class, 'index']);
 });
