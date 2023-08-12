@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,15 +14,22 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create([
+        $cat = Category::create([
             'name' => 'Meses'
         ]);
+    
         Category::create([
             'name' => 'Dias'
         ]);
-        Category::create([
+        $cat = Category::create([
             'name' => 'Letras'
         ]);
+
+        $image = Image::create([
+            'path' => 'words.png'
+        ]);
+        $cat->images()->attach($image,[ 'created_at' => now(), 'updated_at' => now()]);
+
         Category::create([
             'name' => 'Palabras'
         ]);

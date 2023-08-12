@@ -13,6 +13,10 @@ class Data extends Model
 
     ];
 
+    protected $appends = [
+        'image_path'
+    ];
+
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -25,4 +29,16 @@ class Data extends Model
     public function categories(){
         return $this->belongsToMany(Category::class);
     }
+
+    public function images(){
+        return $this->morphToMany(Image::class, 'imageable');
+    }
+
+     public function getImagePathAttribute(){
+        return $this->images->isEmpty() ? null : $this->images->first()->path;
+        //  return 'werw';
+    }
+
+
+
 }

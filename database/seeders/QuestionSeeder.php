@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Data;
+use App\Models\Image;
 use App\Models\Question;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +14,7 @@ class QuestionSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = [];
+      
         $question_answers = json_decode( file_get_contents('database/jsons/questions.json'), true);
         
         foreach($question_answers as $question){
@@ -30,6 +31,9 @@ class QuestionSeeder extends Seeder
                         'meaning' =>  $answer['meaning'],
                         'image_path' =>  $answer['image_path'],
                     ]);
+
+                    $image = Image::create(['path' => $answer['image_path']]);
+                    $q->images()->attach($image, ['created_at' => now(), 'updated_at' => now()]);
                 }
                 else{
                     $q->answers()->attach($ans);

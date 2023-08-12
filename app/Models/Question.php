@@ -14,6 +14,9 @@ class Question extends Model
         'created_at',
         'updated_at'
     ];
+    protected $appends = [
+        'image_path'
+    ];
 
     public function answers(){
         return $this->belongsToMany(Data::class);
@@ -24,7 +27,12 @@ class Question extends Model
         return  $amount==1? $col[0] : $col;
     }
 
-/*     public function answerType() : Attribute{
-        return 
-    } */
+    public function images(){
+        return $this->morphToMany(Image::class, 'imageable');
+    }
+
+    public function getImagePathAttribute(){
+        return $this->images->isEmpty() ? null : $this->images->first()->path;
+        // return $this->images->first()->path ? : null;
+    }
 }
